@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -e
+
+docker-install -r -u -c su-exec ca-certificates libgcc libstdc++ icu-libs krb5-libs libintl userspace-rcu lttng-ust tzdata
+
+mkdir -p /usr/share/dotnet
+
+wget https://dotnetcli.blob.core.windows.net/dotnet/Sdk/master/dotnet-sdk-latest-linux-musl-x64.tar.gz -q -O - | tar zxf - -C /usr/share/dotnet
+
+ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
+
