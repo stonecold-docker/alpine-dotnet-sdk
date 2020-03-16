@@ -1,11 +1,11 @@
-# alpine-dotnet--sdk
+# alpine-dotnet-sdk
 
-#### [alpine-x64-dotnet--sdk](https://hub.docker.com/r/forumi0721alpinex64/alpine-x64-dotnet--sdk/)
-![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/forumi0721alpinex64/alpine-x64-dotnet--sdk/latest)
-![Docker Image Size (tag)](https://img.shields.io/docker/image-size/forumi0721alpinex64/alpine-x64-dotnet--sdk/latest)
-![MicroBadger Layers (tag)](https://img.shields.io/microbadger/layers/forumi0721alpinex64/alpine-x64-dotnet--sdk/latest)
-![Docker Pulls](https://img.shields.io/docker/pulls/forumi0721alpinex64/alpine-x64-dotnet--sdk)
-![Docker Stars](https://img.shields.io/docker/stars/forumi0721alpinex64/alpine-x64-dotnet--sdk)
+#### [alpine-x64-dotnet-sdk](https://hub.docker.com/r/forumi0721alpinex64/alpine-x64-dotnet-sdk/)
+![Docker Image Version (tag latest semver)](https://img.shields.io/docker/v/forumi0721alpinex64/alpine-x64-dotnet-sdk/latest)
+![Docker Image Size (tag)](https://img.shields.io/docker/image-size/forumi0721alpinex64/alpine-x64-dotnet-sdk/latest)
+![MicroBadger Layers (tag)](https://img.shields.io/microbadger/layers/forumi0721alpinex64/alpine-x64-dotnet-sdk/latest)
+![Docker Pulls](https://img.shields.io/docker/pulls/forumi0721alpinex64/alpine-x64-dotnet-sdk)
+![Docker Stars](https://img.shields.io/docker/stars/forumi0721alpinex64/alpine-x64-dotnet-sdk)
 
 
 
