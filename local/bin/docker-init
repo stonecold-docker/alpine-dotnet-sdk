@@ -12,7 +12,18 @@ echo
 echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> Installing dotnet-sdk"
 mkdir -p /app/dotnet
 cd /app/dotnet
-wget --no-check-certificate -q -O - https://dotnetcli.blob.core.windows.net/dotnet/Sdk/master/dotnet-sdk-latest-linux-musl-x64.tar.gz | tar zx
+DOTNET_ARCH=
+case "$(uname -m)" in
+	x86_64)
+		DOTNET_ARCH=x64
+		;;
+	aarch64)
+		DOTNET_ARCH=arm64
+		;;
+esac
+DOTNET_URL1="$(wget --no-check-certificate -q -O - https://dotnet.microsoft.com/download/dotnet/6.0 | grep 'sdk' | grep "linux-${DOTNET_ARCH}-alpine-binaries" | head -1 | sed -e 's/^.*<a href="\([^"]*\)".*$/\1/g')"
+DOTNET_URL2="$(wget --no-check-certificate -q -O - https://dotnet.microsoft.com${DOTNET_URL1} | grep 'download manual' | grep "linux-musl-${DOTNET_ARCH}.tar.gz" | head -1 | sed -e 's/^.*<a href="\([^"]*\)".*$/\1/g')"
+wget --no-check-certificate -q -O - ${DOTNET_URL2} | tar zx
 ln -sf /app/dotnet /usr/share/dotnet
 ln -sf /usr/share/dotnet/dotnet /usr/bin/dotnet
 echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> OK"
