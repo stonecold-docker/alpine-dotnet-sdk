@@ -9,9 +9,7 @@ docker-install -r -u ${PKG_LIB} ${PKG_DEV}
 echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> OK"
 echo
 
-echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> Installing dotnet-sdk"
-mkdir -p /app/dotnet
-cd /app/dotnet
+echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> Setting build environment"
 DOTNET_ARCH=
 case "$(uname -m)" in
 	x86_64)
@@ -21,9 +19,26 @@ case "$(uname -m)" in
 		DOTNET_ARCH=arm64
 		;;
 esac
-DOTNET_URL1="$(wget --no-check-certificate -q -O - https://dotnet.microsoft.com/download/dotnet/6.0 | grep 'sdk' | grep "linux-${DOTNET_ARCH}-alpine-binaries" | head -1 | sed -e 's/^.*<a href="\([^"]*\)".*$/\1/g')"
-DOTNET_URL2="$(wget --no-check-certificate -q -O - https://dotnet.microsoft.com${DOTNET_URL1} | grep 'download manual' | grep "linux-musl-${DOTNET_ARCH}.tar.gz" | head -1 | sed -e 's/^.*<a href="\([^"]*\)".*$/\1/g')"
-wget --no-check-certificate -q -O - ${DOTNET_URL2} | tar zx
+DOTNET_TYPE="dotnet-sdk"
+DOTNET_MAJOR_VERSION="6"
+DOTNET_VARIANT="linux-musl-${DOTNET_ARCH}"
+RELEASE_INDEX="$(wget --no-check-certificate -q -O - https://github.com/dotnet/core/raw/main/release-notes/releases-index.json | grep -A 9 "\"channel-version\": \"${DOTNET_MAJOR_VERSION}.*\"")"
+RELEASE_JSON_URL="$(echo "${RELEASE_INDEX}" | grep releases.json | head -1 | sed -e 's/^.*"releases.json": "\(.*\)".*$/\1/g')"
+RELEASE_URL="$(wget --no-check-certificate -q -O - ${RELEASE_JSON_URL} | grep "\"url\": \"https://.*/${DOTNET_TYPE}-${DOTNET_MAJOR_VERSION}.*-${DOTNET_VARIANT}.tar.gz\"," | head -1 | sed -e 's/^.*"url": "\(.*\)".*$/\1/g')"
+DOTNET_VERSION="$(echo "${RELEASE_URL}" | sed -e "s/^.*${DOTNET_TYPE}-\(.*\)-${DOTNET_VARIANT}.tar.gz.*$/\1/g")"
+echo "DOTNET_TYPE          : ${DOTNET_TYPE}"
+echo "DOTNET_MAJOR_VERSION : ${DOTNET_MAJOR_VERSION}"
+echo "DOTNET_VARIANT       : ${DOTNET_VARIANT}"
+echo "DOTNET_VERSION       : ${DOTNET_VERSION}"
+echo "RELEASE_URL          : ${RELEASE_URL}"
+echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> OK"
+echo
+
+echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> Installing dotnet-${DOTNET_MAJOR_VERSION}-${DOTNET_TYPE}"
+mkdir -p /app/dotnet
+cd /app/dotnet
+wget --no-check-certificate -q -O - ${RELEASE_URL} | tar zx
+cd /
 ln -sf /app/dotnet /usr/share/dotnet
 ln -sf /usr/share/dotnet/dotnet /usr/bin/dotnet
 echo "[$(TZ="GMT-9" date '+%Y-%m-%d %H:%M:%S')] ==> OK"
