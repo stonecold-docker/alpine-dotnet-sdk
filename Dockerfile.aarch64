@@ -1,5 +1,3 @@
-#ARG BUILD_TAG=aarch64
-
 FROM forumi0721/alpine-base:aarch64
 
 LABEL maintainer="forumi0721@gmail.com"
@@ -13,11 +11,7 @@ ENV ASPNETCORE_URLS=http://+:80 \
 
 COPY local/. /usr/local/
 
-RUN ["docker-build-start"]
-
-RUN ["docker-init"]
-
-RUN ["docker-build-end"]
+RUN ["docker-build"]
 
 ENTRYPOINT ["docker-run"]
 
