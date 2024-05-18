@@ -20,7 +20,7 @@ case "$(uname -m)" in
 		;;
 esac
 DOTNET_TYPE="dotnet-sdk"
-DOTNET_MAJOR_VERSION="6"
+DOTNET_MAJOR_VERSION="8"
 DOTNET_VARIANT="linux-musl-${DOTNET_ARCH}"
 RELEASE_JSON_URL="$(wget --no-check-certificate -q -O - https://github.com/dotnet/core/raw/main/release-notes/releases-index.json | grep "\"releases.json\": \"https://.*/dotnet/release-metadata/${DOTNET_MAJOR_VERSION}.*/releases.json\"" | sed -e 's/^.*"releases.json": "\(.*\)".*$/\1/g')"
 RELEASE_URL="$(wget --no-check-certificate -q -O - ${RELEASE_JSON_URL} | grep "\"url\": \"https://.*/${DOTNET_TYPE}-${DOTNET_MAJOR_VERSION}.*-${DOTNET_VARIANT}.tar.gz\"," | head -1 | sed -e 's/^.*"url": "\(.*\)".*$/\1/g')"
