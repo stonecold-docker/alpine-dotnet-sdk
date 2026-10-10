@@ -5,10 +5,10 @@
 
 
 ----------------------------------------
-### x64
-![Docker Image Size](https://img.shields.io/docker/image-size/forumi0721/alpine-dotnet-sdk/x64)
-### aarch64
-![Docker Image Size](https://img.shields.io/docker/image-size/forumi0721/alpine-dotnet-sdk/aarch64)
+### amd64
+![Docker Image Size (tag)](https://img.shields.io/docker/image-size/forumi0721/alpine-dotnet-sdk/latest?arch=amd64)
+### arm64
+![Docker Image Size (tag)](https://img.shields.io/docker/image-size/forumi0721/alpine-dotnet-sdk/latest?arch=arm64)
 
 
 
@@ -16,8 +16,8 @@
 #### Description
 
 * Distribution : [Alpine Linux](https://alpinelinux.org/)
-* Architecture : x64,aarch64
-* Appplication : [.NET Core](https://github.com/dotnet/core/)
+* Architecture : amd64, arm64
+* Application : [.NET Core](https://github.com/dotnet/core/)
     - .NET Core is a free and open-source managed computer software framework for the Windows, Linux, and macOS operating systems.
 
 
@@ -27,7 +27,7 @@
 
 ```sh
 docker run -i -t --rm \
-           forumi0721/alpine-dotnet-sdk:[ARCH_TAG]
+           forumi0721/alpine-dotnet-sdk:latest
 ```
 
 
